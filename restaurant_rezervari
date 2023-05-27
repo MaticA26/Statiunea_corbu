@@ -1,0 +1,29 @@
+create extension postgis;
+
+create table restaurant
+(
+	restaurant_fid serial primary key not null,
+	statiune_fid integer,
+	nume varchar(20) not null,
+	orar VARCHAR(20) not null,
+	geom geometry(Polygon,4326),
+	constraint fk_statiune foreign key (statiune_fid) references statiune(statiune_fid)
+);
+
+create table rezervari
+(
+	fid serial primary key not null,
+	hotel_fid integer,
+	nume_client varchar(50) not null,
+	metoda_plate varchar(50) not null,
+	constraint fk_hotel foreign key (hotel_fid) references hotel(hotel_fid)
+);
+
+insert into table rezervari(hotel_fid, nume_client, metoda_plate)
+values
+(1,'Costinas Alexandru', 'Card Debit'),
+(3,'Matica Andrei', 'Numerar'),
+(2,'Alina Satmari', 'Card Debit'),
+(2,'Ionut Ungurianu', 'Card Debit'),
+(4,'Dana Solomon', 'Card Debit'),
+(4,'Dana Ciucea', 'Numerar');
